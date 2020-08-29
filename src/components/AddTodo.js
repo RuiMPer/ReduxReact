@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addTodoAction } from "../actions/todos";
 
 class AddTodo extends Component {
 	state = {
@@ -25,8 +27,9 @@ class AddTodo extends Component {
 		};
 		this.setState({ newTodoName: "" });
 
-		//Lift the state up
-		this.props.onAddNewTodo(newTodo);
+		//Lift the state up - this is not necessary anymore
+		// this.props.onAddNewTodo(newTodo);
+		this.props.handleAddTodo(newTodo);
 	};
 
 	render() {
@@ -46,4 +49,8 @@ class AddTodo extends Component {
 	}
 }
 
-export default AddTodo;
+const mapDispacthToProps = (dispatch) => ({
+	handleAddTodo: (todo) => dispatch(addTodoAction(todo)),
+});
+
+export default connect(null, mapDispacthToProps)(AddTodo);
